@@ -4,6 +4,7 @@ import org.example.entity.Menu;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 public class MenuDao {
@@ -38,15 +39,23 @@ public class MenuDao {
     }
 
     public List<Menu> findAllByValue(final BigDecimal filter) {
-        String jpql = "SELECT m FROM Menu m WHERE m.value = :value";
-        return this.entityManager.createQuery(jpql, Menu.class)
-                .setParameter("value", filter).getResultList();
+        try {
+            String jpql = "SELECT m FROM Menu m WHERE m.value = :value";
+            return this.entityManager.createQuery(jpql, Menu.class)
+                    .setParameter("value", filter).getResultList();
+        } catch (Exception ex) {
+            return Collections.emptyList();
+        }
+
     }
 
-
     public List<Menu> findAll() {
-        String sql = "SELECT m FROM Menu m";
-        return this.entityManager.createQuery(sql, Menu.class).getResultList();
+        try {
+            String sql = "SELECT m FROM Menu m";
+            return this.entityManager.createQuery(sql, Menu.class).getResultList();
+        } catch (Exception ex) {
+            return Collections.emptyList();
+        }
     }
 
     public void remove(final Menu menu) {
