@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 public class MnuService {
     public static void main(String[] args) {
         EntityManager entityManager = JPAUtil.getEntityManagerRasFood();
-
         createProductMenu(entityManager, createCategory(entityManager));
 
     }
@@ -31,14 +30,14 @@ public class MnuService {
 
     public static void createProductMenu(EntityManager entityManager, Category category) {
         Menu risoto = new Menu();
-        risoto.setName("Risoto de frutos do mar");
+        risoto.setName("Risoto");
         risoto.setDescription("Risoto acompanhado de lula, polvo e mariscos");
         risoto.setAvailable(true);
         risoto.setCategory(category);
         risoto.setValue(BigDecimal.valueOf(88.50));
 
         Menu salmao = new Menu();
-        salmao.setName("Salmão de frutos do mar");
+        salmao.setName("Salmão");
         salmao.setDescription("Salmão acompanhado de lula, polvo e mariscos");
         salmao.setAvailable(true);
         salmao.setCategory(category);
@@ -51,6 +50,15 @@ public class MnuService {
         entityManager.flush();
         menuDao.create(salmao);
         entityManager.flush();
+
+        menuDao.findAll()
+                .forEach(System.out::println);
+
+
+        System.out.println("Lista de produtos por valor: "+
+                menuDao.findAllByValue(BigDecimal.valueOf(60.50)));
+
+        System.out.println("Produto pesquisado foi: "+ menuDao.findByName("risoto"));
 
         entityManager.close();
     }
