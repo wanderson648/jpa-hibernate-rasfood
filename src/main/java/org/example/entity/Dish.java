@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "dishes")
+@Table(name = "pratos")
 public class Dish {
 
     @Id
@@ -76,11 +76,12 @@ public class Dish {
     @Override
     public String toString() {
         return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", available=" + available +
-                ", dtRegistered=" + dtRegistered +
+                "id= " + id +
+                ", name= '" + name + '\'' +
+                ", description= '" + description + '\'' +
+                ", available= " + available +
+                ", dtRegistered= " + dtRegistered +
+                ", value= " + value +
                 '}';
     }
 }
