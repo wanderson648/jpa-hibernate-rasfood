@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "pratos")
-public class Dish {
+@Table(name = "cardapio")
+public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,20 @@ public class Dish {
     @Column(name = "dt_registered")
     private LocalDateTime dtRegistered = LocalDateTime.now();
 
-    public Dish() {
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Category category;
+
+    public Menu() {
+    }
+
+    public Menu(String name, String description, Boolean available, BigDecimal value, LocalDateTime dtRegistered, Category category) {
+        this.name = name;
+        this.description = description;
+        this.available = available;
+        this.value = value;
+        this.dtRegistered = dtRegistered;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -73,15 +86,24 @@ public class Dish {
         this.dtRegistered = dtRegistered;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
     @Override
     public String toString() {
-        return "Dish{" +
-                "id= " + id +
-                ", name= '" + name + '\'' +
-                ", description= '" + description + '\'' +
-                ", available= " + available +
-                ", dtRegistered= " + dtRegistered +
-                ", value= " + value +
+        return "Menu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", available=" + available +
+                ", value=" + value +
+                ", dtRegistered=" + dtRegistered +
+                ", category=" + category +
                 '}';
     }
 }
