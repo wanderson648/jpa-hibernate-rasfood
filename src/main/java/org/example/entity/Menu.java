@@ -27,9 +27,6 @@ public class Menu {
     @JoinColumn(name = "categoria_id")
     private Category category;
 
-    @ManyToMany(mappedBy = "menuList")
-    private List<Order> orders;
-
     public Menu() {
     }
 

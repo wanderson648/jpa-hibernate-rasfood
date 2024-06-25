@@ -3,6 +3,7 @@ package org.example.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,15 +22,15 @@ public class Order {
     @ManyToOne
     private Client client;
 
-    @ManyToMany
-    @JoinTable(
-            name = "ordens_cardapio",
-            joinColumns = @JoinColumn(name = "ordens_id"),
-            inverseJoinColumns = @JoinColumn(name = "cardapio_id")
-    )
-    private List<Menu> menuList;
+    @OneToMany(mappedBy = "order")
+    private List<OrderMenu> orderMenuList = new ArrayList<>();
 
     public Order() {
+    }
+
+    public void addOrderMenu(OrderMenu orderMenu) {
+        orderMenu.setOrder(this);
+        this.orderMenuList.add(orderMenu);
     }
 
     public Order(Client client) {
