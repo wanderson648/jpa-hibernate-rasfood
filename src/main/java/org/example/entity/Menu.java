@@ -3,6 +3,7 @@ package org.example.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "cardapio")
@@ -25,6 +26,9 @@ public class Menu {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Category category;
+
+    @ManyToMany(mappedBy = "menuList")
+    private List<Order> orders;
 
     public Menu() {
     }
